@@ -15,8 +15,15 @@ export (int) var JUMP_FORCE = 128
 export (int) var MAX_SLOPE_ANGLE = 46
 export (int) var BULLET_SPEED = 250
 
+enum{
+	MOVE, WALL_SLIDE
+}
+
+var state = MOVE
+
 var invincible = false setget set_invincible
 var motion = Vector2.ZERO
+
 var snapVector = Vector2.ZERO
 var just_jumped = false
 var dbl_jump = true
@@ -40,17 +47,25 @@ func _ready():
 
 func _physics_process(delta):
 	just_jumped = false
-	# PRENDS LA DIRECTION
-	var input_vector = get_input_vector()
 	
-	apply_horizontal_force(input_vector, delta)
-	apply_friction(input_vector)
-	update_snap_vector()
-	apply_gravity(delta)
-	jump_check()
-	update_animation(input_vector)
-	move()
-	
+	match state:
+		MOVE:
+			# PRENDS LA DIRECTION
+			var input_vector = get_input_vector()
+			
+			apply_horizontal_force(input_vector, delta)
+			apply_friction(input_vector)
+			update_snap_vector()
+			apply_gravity(delta)
+			jump_check()
+			update_animation(input_vector)
+			move()
+			
+			#transition to the wall slide
+			wall_slide_check()
+		WALL_SLIDE:
+			pass
+		
 	if Input.is_action_pressed("Fire") and fireBulletTimer.time_left == 0:
 		fire_bullet()
 	
@@ -160,3 +175,8 @@ func _on_HurtBox_hit(damage):
 
 func _on_died():
 	queue_free()
+	
+func wall_slide_check():
+	if not is_on_floor() and is_on_wall():
+		state = WALL_SLIDE
+		dbl_jump = true
