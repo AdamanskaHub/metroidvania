@@ -3,6 +3,7 @@ extends KinematicBody2D
 const Dust = preload("res://Effects/DustEffect.tscn")
 const WallSlideEffect = preload("res://Effects/WallSlideEffect.tscn")
 const PlayerBullet = preload("res://Player/PlayerBullet.tscn")
+const PlayerMissile = preload("res://Player/PlayerMissile.tscn")
 const JumpEffect = preload("res://Effects/JumpEffect.tscn")
 
 var PlayerStats = ResourceLoader.PlayerStats
@@ -19,6 +20,7 @@ export (int) var MAX_SLOPE_ANGLE = 46
 export (int) var SLIDE_SPEED = 48
 export (int) var MAX_SLIDE_SPEED = 128
 export (int) var BULLET_SPEED = 250
+export (int) var MISSILE_SPEED = 150
 
 enum{
 	MOVE, WALL_SLIDE
@@ -84,12 +86,25 @@ func _physics_process(delta):
 		
 	if Input.is_action_pressed("Fire") and fireBulletTimer.time_left == 0:
 		fire_bullet()
+	if Input.is_action_pressed("missile") and fireBulletTimer.time_left == 0:
+		if PlayerStats.missiles > 0:
+			fire_missile()
+			PlayerStats.missiles -= 1
 	
 func fire_bullet():
 	var bullet = Utils.instance_scene_on_main(PlayerBullet, muzzle.global_position)
 	bullet.velocity = Vector2.RIGHT.rotated(gun.rotation)*BULLET_SPEED
 	bullet.velocity.x *= sprite.scale.x # donc * 1 ou -1
 	bullet.rotation = bullet.velocity.angle()
+	fireBulletTimer.start()
+	
+	
+func fire_missile():
+	var missile = Utils.instance_scene_on_main(PlayerMissile, muzzle.global_position)
+	missile.velocity = Vector2.RIGHT.rotated(gun.rotation)*MISSILE_SPEED
+	missile.velocity.x *= sprite.scale.x # donc * 1 ou -1
+	motion -= missile.velocity *.25
+	missile.rotation = missile.velocity.angle()
 	fireBulletTimer.start()
 	
 func get_input_vector():
@@ -163,7 +178,10 @@ func move():
 
 			
 func update_animation(input_vector):
-	sprite.scale.x = sign(get_local_mouse_position().x)
+	var facing = sign(get_local_mouse_position().x)
+	if facing != 0:
+		sprite.scale.x = facing 
+	sprite.scale.x = facing
 	if input_vector.x != 0:
 		spriteAnimator.play("Run")
 		spriteAnimator.playback_speed = input_vector.x * sprite.scale.x

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://World/TileMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://World/Camera2D2.tscn" type="PackedScene" id=6]
 [ext_resource path="res://UI/UI.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Enemies/FlyingEnemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Enemies/PlantEnemy.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Enemies/CrawlingEnemy.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Loop"
@@ -63,6 +65,21 @@ position = Vector2( 240, 176 )
 
 [node name="FlyingEnemy" parent="." instance=ExtResource( 8 )]
 position = Vector2( 490.732, 1.94454 )
+MAX_SPEED = 15
+
+[node name="PlantEnemy" parent="." instance=ExtResource( 9 )]
+position = Vector2( 301.757, 160.336 )
+
+[node name="PlantEnemy2" parent="." instance=ExtResource( 9 )]
+position = Vector2( 362.922, 128.693 )
+
+[node name="PlantEnemy3" parent="." instance=ExtResource( 9 )]
+position = Vector2( 331.456, 62.9324 )
+rotation = -3.14159
+
+[node name="CrawlingEnemy" parent="." instance=ExtResource( 10 )]
+position = Vector2( 232.991, -16.2634 )
+rotation = -3.14159
 
 [editable path="Player"]
 
