@@ -43,6 +43,7 @@ onready var muzzle = $Sprite/PlayerGun/Sprite/Muzzle
 onready var gun = $Sprite/PlayerGun
 onready var fireBulletTimer = $FireBullet
 onready var blinkAnimator= $BlinkAnimator
+onready var powerUpDetector = $PowerUpDetector
 
 func set_invincible(value):
 	invincible = value
@@ -87,9 +88,10 @@ func _physics_process(delta):
 	if Input.is_action_pressed("Fire") and fireBulletTimer.time_left == 0:
 		fire_bullet()
 	if Input.is_action_pressed("missile") and fireBulletTimer.time_left == 0:
-		if PlayerStats.missiles > 0:
+		if PlayerStats.missiles > 0 and PlayerStats.missile_unlocked :
 			fire_missile()
 			PlayerStats.missiles -= 1
+			
 	
 func fire_bullet():
 	var bullet = Utils.instance_scene_on_main(PlayerBullet, muzzle.global_position)
@@ -251,7 +253,16 @@ func wall_detach_check(delta, wall_axis):
 
 
 
-
+func _on_PowerUpDetector_area_entered(area):
+	if area is PowerUp: #powerup as a classname
+		area._pickup()
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

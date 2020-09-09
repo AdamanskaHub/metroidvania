@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "PlayerStats",
 "language": "GDScript",
 "path": "res://Player/PlayerStats.gd"
+}, {
+"base": "Area2D",
+"class": "PowerUp",
+"language": "GDScript",
+"path": "res://Player/PowerUp.gd"
 } ]
 _global_script_class_icons={
 "MainInstances": "",
-"PlayerStats": ""
+"PlayerStats": "",
+"PowerUp": ""
 }
 
 [application]
@@ -121,6 +127,7 @@ missile={
 2d_physics/layer_3="PlayerHurt"
 2d_physics/layer_4="EnemyHurt"
 2d_physics/layer_5="Brick"
+2d_physics/layer_6="PowerUp"
 
 [rendering]
 

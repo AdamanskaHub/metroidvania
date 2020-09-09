@@ -13,11 +13,12 @@ margin_right = 25.0
 margin_bottom = 16.0
 rect_clip_content = true
 
-[node name="PauseMenu" parent="." instance=ExtResource( 2 )]
-visible = false
-
 [node name="MissilesUI" parent="." instance=ExtResource( 3 )]
+visible = false
 margin_left = 3.75
 margin_top = 19.0
 margin_right = -284.25
 margin_bottom = -151.0
+
+[node name="PauseMenu" parent="." instance=ExtResource( 2 )]
+visible = false

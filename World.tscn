@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://World/TileMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Enemies/PlantEnemy.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Enemies/CrawlingEnemy.tscn" type="PackedScene" id=10]
 [ext_resource path="res://World/Brick.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Player/MissilePowerUp.tscn" type="PackedScene" id=12]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Loop"
@@ -90,6 +91,9 @@ position = Vector2( 320.319, 7.1771 )
 
 [node name="Brick3" parent="." instance=ExtResource( 11 )]
 position = Vector2( 320.142, -8.90955 )
+
+[node name="MissilePowerUp" parent="." instance=ExtResource( 12 )]
+position = Vector2( 290.267, 24.5719 )
 
 [editable path="Player"]
 
