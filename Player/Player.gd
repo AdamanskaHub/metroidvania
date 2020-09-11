@@ -35,6 +35,8 @@ var snapVector = Vector2.ZERO
 var just_jumped = false
 var dbl_jump = true
 
+signal hit_door(door)
+
 
 onready var sprite = $Sprite
 onready var spriteAnimator = $SpriteAnimator
